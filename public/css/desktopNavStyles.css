@@ -1,58 +1,50 @@
-.desktop_navigation_container {
-    z-index: 4;
-    top: 0;
-    right: 0;
-    left: 0;
-    position: fixed;
-    height: 60px;
-}
-
-.header_container {
+.nav-bar {
     position: fixed;
     top: 0;
-    right: 0;
     left: 0;
-    bottom: 0;
-    height: 44px;
-}
-
-.header {
+    right: 0;
+    z-index: 10;
     display: flex;
-    flex-direction: row;
     align-items: center;
-    max-width: 100%;
     justify-content: space-between;
-    height: 44px;
-    padding: 8px 16px;
-    background-color: #202023;
-    font-weight: 600;
-    line-height: 1.43;
-    color: white;
-    z-index: 5;
+    height: 56px;
+    padding: 0 1.25rem;
+    background-color: #12121d;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
 }
 
 .logo {
-    height: 46px;
-    vertical-align: text-bottom;
-    color: inherit;
-    border-radius: 10px;
+    height: 40px;
+    border-radius: 8px;
 }
 
-.action_buttons_container {
+.nav-actions {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    margin-left: 24px;
-    gap: 6px;
+    gap: 0.75rem;
 }
 
-.action_buttons_list a {
+.nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d7d9e0;
     text-decoration: none;
-    margin-right: .5rem;
+    padding: 6px;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+}
+
+.nav-link:hover {
+    background: #ffffff10;
 }
 
 @media screen and (max-width: 768px) {
-    .action_buttons_container {
-        display: none !important;
+    .nav-actions {
+        display: none;
     }
 }

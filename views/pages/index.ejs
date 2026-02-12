@@ -8,123 +8,183 @@
     <meta property="og:title" content="Hydraulisc - Stay in the loop">
     <meta property="og:description" content="Stay in the loop, with Hydraulisc - where communities come together!">
     <meta property="og:image" content="https://about.hydraulisc.net/assets/img/Foss-H-logo.png">
-    <!-- Unused Canonical and alternate "link"'s removed: https://www.html-easy.com/references/html-link-tag/ & https://ahrefs.com/blog/canonical-tags/ -->
     <link rel="icon" type="image/png" href="https://about.hydraulisc.net/assets/img/Foss-H-logo.png">
     <meta name="description" content="Stay in the loop, with Hydraulisc - where communities come together!">
     <meta property="og:site_name" content="Hydraulisc - Stay in the loop">
     <meta name="theme-color" content="rgba(33, 33, 33, 0.98)">
     <link rel="stylesheet" href="/css/classicStyles.css">
     <link rel="stylesheet" href="/css/popupStyles.css">
+    <style>
+        .feed {
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .feed-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #d7d9e0;
+        }
+        .card {
+            background: #12121d;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: background 0.15s ease;
+        }
+        .card:hover {
+            background: #1a1a2a;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+        }
+        .card-user {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.625rem;
+            text-decoration: none;
+            color: #d7d9e0;
+            background: #30303f;
+            border-radius: 50px;
+            padding: 3px 12px 3px 3px;
+        }
+        .card-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            flex-shrink: 0;
+        }
+        .card-username {
+            font-weight: 600;
+            font-size: 0.9rem;
+            line-height: 1;
+        }
+        .card-body {
+            display: block;
+            text-decoration: none;
+            color: #d7d9e0;
+        }
+        .card-image {
+            max-width: 100%;
+            max-height: none;
+            display: block;
+            margin: 0 auto;
+        }
+        .card-caption {
+            margin: 0.75rem 1rem;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #b0b3bd;
+            background: #30303f;
+            border-radius: 10px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: #12121d;
+            border-radius: 12px;
+        }
+        .empty-state p {
+            color: #8a8d97;
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+        .empty-state a {
+            color: #5667c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .empty-state a:hover {
+            text-decoration: underline;
+        }
+        .menu-btn {
+            background: none;
+            border: none;
+            color: #8a8d97;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            line-height: 1;
+        }
+        .menu-btn:hover {
+            background: #ffffff10;
+            color: #d7d9e0;
+        }
+        .card .dropdown {
+            position: relative;
+        }
+        .card .dropdown-content {
+            right: 0;
+            top: 100%;
+            padding-top: 4px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        @media screen and (max-width: 768px) {
+            .feed {
+                padding: 0 0.5rem;
+            }
+            .card-image {
+                max-height: 320px;
+            }
+        }
+    </style>
 </head>
 <body>
     <%- include('../partials/header', { username: ownId }) %>
     <div class="app-container">
-        <div class="gridz">
-            <div class="home_container">
-                <h3>Latest Uploads</h3>
-                <div class="container_container">
-                    <main class="landing_feat">
-                        <div>
-                            <% if (posts.length) { %>
-                                <% for (const post of posts) { %>
-                                <div id="<%- post.id %>" class="star_post_container">
-                                    <div style="margin-bottom: 12px;">
-                                        <span class="star_post_header_container">
-                                            <span class="star_post_header">
-                                                <span class="star_post_user_container">
-                                                    <span style="display: flex;">
-                                                        <div>
-                                                            <div>
-                                                                <a href="/user/<%- post.user_id %>" class="star_post_title">
-                                                                    <div style="padding-right: 6px;">
-                                                                        <img src="<%- post.pfp %>" style="color: black; border-radius: 50%; overflow: hidden; justify-content: center; align-items: center; width: 40px; height: 40px; display: flex;" loading="lazy">
-                                                                    </div>
-                                                                    <span style="font-size: larger;"><%- post.username %></span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </span>
-                                                </span>
-                                            </span>
-                                            <div class="dropdown">
-                                                <span class="popup_menu <%- post.id %> dropbtn">⋮</span>
-                                                <div class="dropdown-content">
-                                                    <a style="text-transform: uppercase; text-align: center; font-weight: 600; font-size: small;" href="https://about.hydraulisc.net/help/articles/101013/" target="_blank">Report Content</a>
-                                                    <% if(post.user_id == ownId) { %>
-                                                        <a style="text-transform: uppercase; text-align: center; font-weight: 600; font-size: small;" href="/post/<%- post.id %>/edit">Edit</a>
-                                                        <form action="/api/posts/<%- post.id %>/delete" method="post">
-                                                            <button class="destructive_options" type="submit">Delete</button>
-                                                        </form>
-                                                    <% } %>
-                                                    <% if(isAdmin) { %>
-                                                        <form action="/auth/admin/<%- post.id %>/sudodelete" method="post">
-                                                            <button class="destructive_options" type="submit">Sudo Delete</button>
-                                                        </form>
-                                                    <% } %>
-                                                </div>
-                                            </div>
-                                        </span>
-                                    </div>
-                                    <a style="inset: 0; text-decoration: none; color: #d7d9e0;" href="/post/<%- post.id %>">
-                                        <div style="display: flex; margin-top: .3rem;">
-                                            <div style="overflow: hidden; margin-left: auto; margin-right: auto; position: relative; display: inline-block;">
-                                                <div class="overlay"></div>
-                                                <img class="star_post_body" src="/uploads/<%- post.filename %>" loading="lazy">
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; margin-top: .3rem; margin-bottom: .3rem;">
-                                            <div class="star_post_texter" style="overflow: hidden;">
-                                                <%- post.title %>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
+        <div class="feed">
+            <h3 class="feed-title">Latest Uploads</h3>
+
+            <% if (posts.length) { %>
+                <% for (const post of posts) { %>
+                <div class="card" id="<%- post.id %>">
+                    <div class="card-header">
+                        <a href="/user/<%- post.user_id %>" class="card-user">
+                            <img class="card-avatar" src="<%- post.pfp %>" alt="<%- post.username %>" loading="lazy">
+                            <span class="card-username"><%- post.username %></span>
+                        </a>
+                        <div class="dropdown">
+                            <span class="menu-btn popup_menu <%- post.id %> dropbtn">&#x22EE;</span>
+                            <div class="dropdown-content">
+                                <a href="https://about.hydraulisc.net/help/articles/101013/" target="_blank" style="text-transform: uppercase; text-align: center; font-weight: 600; font-size: small;">Report Content</a>
+                                <% if (post.user_id == ownId) { %>
+                                    <a href="/post/<%- post.id %>/edit" style="text-transform: uppercase; text-align: center; font-weight: 600; font-size: small;">Edit</a>
+                                    <form action="/api/posts/<%- post.id %>/delete" method="post">
+                                        <button class="destructive_options" type="submit">Delete</button>
+                                    </form>
                                 <% } %>
-                            <% } else { %>
-                                <div id="" class="star_post_container">
-                                    <div style="margin-bottom: 12px;">
-                                        <span class="star_post_header_container">
-                                            <span class="star_post_header">
-                                                <span class="star_post_user_container">
-                                                    <span style="display: flex;">
-                                                        <div>
-                                                            <div>
-                                                                <a href="/" class="star_post_title">
-                                                                    <div style="padding-right: 6px;">
-                                                                        <img src="/img/defaultpfp.png" style="color: black; border-radius: 50%; overflow: hidden; justify-content: center; align-items: center; width: 40px; height: 40px; display: flex;" loading="lazy">
-                                                                    </div>
-                                                                    <span style="font-size: larger;">No Data</span>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </span>
-                                                </span>
-                                            </span>
-                                            <span></span>
-                                        </span>
-                                    </div>
-                                    <a style="inset: 0; text-decoration: none; color: white;" href="/">
-                                        <div style="display: flex; margin-top: .3rem;">
-                                            <div style="overflow: hidden; margin-left: auto; margin-right: auto; position: relative; display: inline-block;">
-                                                <img class="star_post_body" src="/img/defaultpfp.png" loading="lazy">
-                                                <div class="overlay"></div>
-                                            </div>
-                                        </div>
-                                        <div style="display: flex; margin-top: .3rem; margin-bottom: .3rem;">
-                                            <div class="star_post_texter" style="overflow: hidden;">
-                                                If you are seeing this post, no posts exist on this instance, or this instance has it's feed set to private. <a href="/login">Login</a> to view more. <a href="https://blog.hydraulisc.net/blog/haulisc-roadmap" target="_blank" rel="noopener noreferrer">Roadmap</a>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            <% } %>
+                                <% if (isAdmin) { %>
+                                    <form action="/auth/admin/<%- post.id %>/sudodelete" method="post">
+                                        <button class="destructive_options" type="submit">Sudo Delete</button>
+                                    </form>
+                                <% } %>
+                            </div>
                         </div>
-                    </main>
+                    </div>
+                    <a class="card-body" href="/post/<%- post.id %>">
+                        <img class="card-image" src="/uploads/<%- post.filename %>" alt="" loading="lazy">
+                        <div class="card-caption"><%- post.title %></div>
+                    </a>
                 </div>
-            </div>
+                <% } %>
+            <% } else { %>
+                <div class="empty-state">
+                    <p>No posts yet.</p>
+                    <p>If this instance has its feed set to private, <a href="/login">log in</a> to see more.</p>
+                </div>
+            <% } %>
         </div>
     </div>
     <%- include('../partials/cookies', { cookies }) %>
-    <%- include('../partials/footer', { username: ownId}) %>
+    <%- include('../partials/footer', { username: ownId }) %>
 </body>
 </html>
